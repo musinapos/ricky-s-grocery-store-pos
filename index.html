@@ -3,37 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>RICKY'S GROCERY STORE - POS</title>
+<title>RICKY'S GROCERY STORE - FULL POS</title>
 <style>
   *{box-sizing:border-box;font-family:Inter,system-ui,Arial,sans-serif}
   body{margin:0;background:#FFF8F0;color:#2b0f14}
-
-  /* ===== LOGO SCREEN ===== */
-  #logoScreen{position:fixed;inset:0;background:radial-gradient(circle at 50% 30%,#8A1420,#4A0810);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:100;text-align:center;padding:20px}
-  #logoScreen img{width:220px;height:220px;border-radius:50%;object-fit:cover;border:6px solid #D4AF37;box-shadow:0 20px 50px rgba(0,0,0,.5);background:#fff}
-  #logoScreen h1{color:#fff;font-size:42px;letter-spacing:2px;margin:18px 0 2px;line-height:1}
-  #logoScreen p{color:#FFD700;letter-spacing:6px;font-size:14px;margin:0 0 26px;font-weight:700}
-  .logo-btn{width:280px;max-width:90%;padding:16px;border-radius:999px;border:3px solid #D4AF37;font-size:17px;font-weight:900;cursor:pointer;margin:6px 0}
-  .btn-gold{background:linear-gradient(#FFD700,#D4AF37);color:#4A0810;box-shadow:0 8px 20px rgba(0,0,0,.3)}
-  .btn-maroon{background:#6B0F1A;color:#fff;box-shadow:0 8px 20px rgba(0,0,0,.3)}
-  .btn-white{background:#fff;color:#6B0F1A}
-  .logo-footer{color:#ffffffaa;font-size:12px;margin-top:20px}
-
-  /* ===== POS ===== */
-  header{background:#6B0F1A;color:#fff;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;box-shadow:0 4px 20px rgba(0,0,0,.2)}
-  .logo{display:flex;align-items:center;gap:12px}
+  header{background:#6B0F1A;color:#fff;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:0 4px 20px rgba(0,0,0,.2)}
+  .logo{display:flex;align-items:center;gap:12px;cursor:pointer}
   .logo img{width:60px;height:60px;border-radius:50%;object-fit:cover;border:3px solid #D4AF37;background:#fff}
   .logo b{font-size:22px;letter-spacing:1px;line-height:1}
   .logo small{color:#FFD700;letter-spacing:4px;font-size:11px}
-  .top-actions button{background:#D4AF37;border:none;padding:10px 14px;border-radius:999px;font-weight:800;cursor:pointer}
-  .wrap{display:grid;grid-template-columns:1fr 380px;gap:16px;padding:16px;max-width:1400px;margin:auto}
+  .nav{display:flex;gap:8px;flex-wrap:wrap}
+  .nav button{background:#fff;color:#6B0F1A;border:none;padding:10px 16px;border-radius:999px;font-weight:800;cursor:pointer}
+  .nav button.active{background:#D4AF37;color:#111}
+  .page{display:none;max-width:1400px;margin:auto;padding:16px}
+  .page.active{display:block}
+
+  /* LOGO SCREEN PAGE */
+  #page-home{text-align:center;padding:30px 16px;background:radial-gradient(circle at 50% 20%,#8A1420,#4A0810);color:#fff;border-radius:0 0 20px 20px}
+  #page-home img.main-logo{width:220px;height:220px;border-radius:50%;object-fit:cover;border:6px solid #D4AF37;box-shadow:0 20px 50px rgba(0,0,0,.5);background:#fff}
+  #page-home h1{font-size:44px;margin:16px 0 2px;letter-spacing:2px;line-height:1}
+  #page-home p.sub{color:#FFD700;letter-spacing:6px;font-weight:700;margin:0 0 24px}
+  .logo-btn{width:300px;max-width:90%;padding:16px;border-radius:999px;border:3px solid #D4AF37;font-size:17px;font-weight:900;cursor:pointer;margin:6px 0;display:block;margin-left:auto;margin-right:auto}
+  .btn-gold{background:linear-gradient(#FFD700,#D4AF37);color:#4A0810}
+  .btn-maroon{background:#6B0F1A;color:#fff}
+  .btn-white{background:#fff;color:#6B0F1A}
+
+  /* POS */
+  .wrap{display:grid;grid-template-columns:1fr 380px;gap:16px}
   .search{width:100%;padding:14px 16px;border:2px solid #E8D5B5;border-radius:14px;font-size:16px;outline:none}
   .cats{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
   .cats button{padding:9px 14px;border-radius:999px;border:1px solid #E8D5B5;background:#fff;cursor:pointer;font-weight:700}
-  .cats button.active{background:#6B0F1A;color:#fff;border-color:#6B0F1A}
+  .cats button.active{background:#6B0F1A;color:#fff}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
-  .card{background:#fff;border:1px solid #F0E2C8;border-radius:16px;padding:12px;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.05)}
-  .card:hover{transform:translateY(-2px);border-color:#D4AF37}
+  .card{background:#fff;border:1px solid #F0E2C8;border-radius:16px;padding:12px;cursor:pointer}
   .card .img{height:72px;border-radius:12px;background:#FFF2CC;display:grid;place-items:center;font-size:36px}
   .card h3{margin:10px 0 4px;font-size:15px}
   .card p{margin:0;color:#777;font-size:12px}
@@ -51,79 +53,207 @@
   .qty{display:flex;gap:6px;align-items:center}
   .qty button{width:28px;height:28px;border-radius:50%;border:1px solid #ddd;background:#fff;cursor:pointer;font-weight:800}
   .cart-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px dashed #eee}
-  @media(max-width:900px){.wrap{grid-template-columns:1fr}.cart{position:static} #logoScreen h1{font-size:32px} #logoScreen img{width:180px;height:180px}}
-  @media print{body *{visibility:hidden} #receipt,#receipt *{visibility:visible} #receipt{position:absolute;left:0;top:0;width:100%} #logoScreen{display:none!important}}
+
+  /* TABLES */
+  table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden}
+  th,td{padding:12px;text-align:left;border-bottom:1px solid #eee}
+  th{background:#6B0F1A;color:#fff}
+  .stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:16px}
+  .stat div{background:#fff;padding:16px;border-radius:14px;border:1px solid #F0E2C8;text-align:center}
+  .stat b{font-size:24px;color:#6B0F1A;display:block}
+  input,select{padding:12px;border:2px solid #E8D5B5;border-radius:12px;font-size:15px;width:100%}
+  .btn{padding:12px 18px;border:none;border-radius:12px;font-weight:800;cursor:pointer;background:#6B0F1A;color:#fff}
+  @media(max-width:900px){.wrap{grid-template-columns:1fr}.cart{position:static}}
+  @media print{body *{visibility:hidden} #receipt,#receipt *{visibility:visible} #receipt{position:absolute;left:0;top:0;width:100%}}
 </style>
 </head>
 <body>
 
-<!-- ===== LOGO SCREEN WITH BUTTONS EXACTLY LIKE LOGO ===== -->
-<div id="logoScreen">
-  <img src="store-logo.png" alt="RICKY'S GROCERY STORE">
-  <h1>RICKY'S</h1>
-  <p>GROCERY STORE</p>
-
-  <button class="logo-btn btn-gold" onclick="openPOS()">🛒 START SELLING</button>
-  <button class="logo-btn btn-maroon" onclick="openPOS('Soft Drinks 2L')">🥤 SOFT DRINKS 2L</button>
-  <button class="logo-btn btn-white" onclick="openPOS('Water 1.5L')">💧 WATER 1.5L</button>
-  <button class="logo-btn btn-white" onclick="openPOS('Juice & More')">🧃 JUICE & MORE</button>
-
-  <div class="logo-footer">Mbombela • RICKY'S GROCERY STORE • Classy & Fast POS</div>
-</div>
-
-<!-- ===== POS ===== -->
 <header>
-  <div class="logo">
-    <img src="store-logo.png" alt="RICKY'S GROCERY STORE" onclick="showLogoScreen()" style="cursor:pointer">
+  <div class="logo" onclick="showPage('home')">
+    <img src="store-logo.png" alt="RICKY'S">
     <div><b>RICKY'S</b><br><small>GROCERY STORE</small></div>
   </div>
-  <div class="top-actions">
-    <button onclick="showLogoScreen()">🏠 HOME</button>
-    <button onclick="window.print()">🧾 PRINT RECEIPT</button>
+  <div class="nav">
+    <button id="nav-home" onclick="showPage('home')">🏠 HOME</button>
+    <button id="nav-pos" onclick="showPage('pos')">🛒 POS</button>
+    <button id="nav-products" onclick="showPage('products')">📦 PRODUCTS</button>
+    <button id="nav-sales" onclick="showPage('sales')">📊 SALES</button>
+    <button onclick="window.print()">🧾 PRINT</button>
   </div>
 </header>
 
-<div class="wrap">
-  <div>
-    <input class="search" id="search" placeholder="Search drink or scan barcode... e.g. Coke 2L, Water 1.5L" oninput="render()">
-    <div class="cats" id="cats"></div>
-    <div class="grid" id="grid"></div>
-    <p style="color:#888;font-size:13px">💡 Tap the logo on top left to go back to Logo Screen.</p>
-  </div>
+<!-- PAGE 1: HOME / LOGO SCREEN -->
+<div id="page-home" class="page active">
+  <img class="main-logo" src="store-logo.png" alt="RICKY'S GROCERY STORE">
+  <h1>RICKY'S</h1>
+  <p class="sub">GROCERY STORE</p>
+  <button class="logo-btn btn-gold" onclick="showPage('pos')">🛒 START SELLING</button>
+  <button class="logo-btn btn-maroon" onclick="goToCat('Soft Drinks 2L')">🥤 SOFT DRINKS 2L</button>
+  <button class="logo-btn btn-white" onclick="goToCat('Water 1.5L')">💧 WATER 1.5L</button>
+  <button class="logo-btn btn-white" onclick="goToCat('Juice & More')">🧃 JUICE & MORE</button>
+  <button class="logo-btn btn-white" onclick="showPage('sales')">📊 TODAY'S SALES</button>
+  <p style="color:#ffffffaa;font-size:12px;margin-top:20px">Mbombela • RICKY'S GROCERY STORE • Classy & Fast POS</p>
+</div>
 
-  <div class="cart">
-    <h2>🧺 Current Sale <span id="count"></span></h2>
-    <div id="cartItems"><p style="color:#999">Cart is empty. Tap a drink to add.</p></div>
-    <input class="cash-input" id="cashGiven" type="number" placeholder="Cash given (R)" oninput="render()">
-    <div class="totals">
-      <div><span>Subtotal</span><b id="sub">R 0.00</b></div>
-      <div><span>VAT (15% incl.)</span><b id="vat">R 0.00</b></div>
-      <div><span>Change</span><b id="change">R 0.00</b></div>
-      <div class="grand"><span>TOTAL</span><span id="total">R 0.00</span></div>
+<!-- PAGE 2: POS -->
+<div id="page-pos" class="page">
+  <div class="wrap">
+    <div>
+      <input class="search" id="search" placeholder="Search drink or scan barcode... e.g. Coke 2L" oninput="render()">
+      <div class="cats" id="cats"></div>
+      <div class="grid" id="grid"></div>
     </div>
-    <div class="pay">
-      <button class="cash" onclick="setPay('CASH')">💵 CASH</button>
-      <button class="cardpay" onclick="setPay('CARD')">💳 CARD</button>
+    <div class="cart">
+      <h2>🧺 Current Sale <span id="count"></span></h2>
+      <div id="cartItems"><p style="color:#999">Cart is empty. Tap a drink to add.</p></div>
+      <input class="cash-input" id="cashGiven" type="number" placeholder="Cash given (R)" oninput="render()">
+      <div class="totals">
+        <div><span>Subtotal</span><b id="sub">R 0.00</b></div>
+        <div><span>VAT (15% incl.)</span><b id="vat">R 0.00</b></div>
+        <div><span>Change</span><b id="change">R 0.00</b></div>
+        <div class="grand"><span>TOTAL</span><span id="total">R 0.00</span></div>
+      </div>
+      <div class="pay">
+        <button class="cash" onclick="setPay('CASH')">💵 CASH</button>
+        <button class="cardpay" onclick="setPay('CARD')">💳 CARD</button>
+      </div>
+      <button class="checkout" onclick="checkout()">✅ COMPLETE SALE</button>
+      <p id="payLabel" style="text-align:center;font-weight:700;color:#6B0F1A">Payment: CASH</p>
     </div>
-    <button class="checkout" onclick="checkout()">✅ COMPLETE SALE • OPEN DRAWER</button>
-    <p id="payLabel" style="text-align:center;font-weight:700;color:#6B0F1A">Payment: CASH</p>
   </div>
+</div>
+
+<!-- PAGE 3: PRODUCTS -->
+<div id="page-products" class="page">
+  <h2>📦 All Products - Drinks</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:10px;margin-bottom:16px">
+    <input id="newName" placeholder="Product name e.g. Coke 2L">
+    <input id="newPrice" type="number" placeholder="Price e.g. 32.99">
+    <select id="newCat"><option>Soft Drinks 2L</option><option>Water 1.5L</option><option>Juice & More</option></select>
+    <button class="btn" onclick="addProduct()">+ ADD PRODUCT</button>
+  </div>
+  <table><thead><tr><th>Product</th><th>Category</th><th>Price</th><th>Code</th><th>Action</th></tr></thead><tbody id="productTable"></tbody></table>
+</div>
+
+<!-- PAGE 4: SALES -->
+<div id="page-sales" class="page">
+  <h2>📊 Sales Report</h2>
+  <div class="stat">
+    <div><span>Today Sales</span><b id="todayTotal">R 0.00</b></div>
+    <div><span>Number of Sales</span><b id="todayCount">0</b></div>
+    <div><span>Items Sold</span><b id="todayItems">0</b></div>
+  </div>
+  <table><thead><tr><th>Time</th><th>Items</th><th>Payment</th><th>Total</th></tr></thead><tbody id="salesTable"><tr><td colspan="4" style="text-align:center;color:#999">No sales yet today. Make your first sale on POS page.</td></tr></tbody></table>
+  <br><button class="btn" onclick="clearSales()" style="background:#999">Clear Sales</button>
 </div>
 
 <div id="receipt" style="display:none"></div>
 
 <script>
-function openPOS(cat){
-  if(cat) activeCat=cat;
-  document.getElementById('logoScreen').style.display='none';
-  render();
-}
-function showLogoScreen(){ document.getElementById('logoScreen').style.display='flex'; }
-
 let products=[
  {id:1,name:"Coca-Cola 2L",price:32.99,cat:"Soft Drinks 2L",emoji:"🥤",code:"6001101"},
  {id:2,name:"Coca-Cola Zero 2L",price:32.99,cat:"Soft Drinks 2L",emoji:"🥤",code:"6001102"},
  {id:3,name:"Fanta Orange 2L",price:32.99,cat:"Soft Drinks 2L",emoji:"🍊",code:"6001103"},
  {id:4,name:"Fanta Grape 2L",price:32.99,cat:"Soft Drinks 2L",emoji:"🍇",code:"6001104"},
  {id:5,name:"Sprite 2L",price:32.99,cat:"Soft Drinks 2L",emoji:"🍋",code:"6001105"},
- {id
+ {id:6,name:"Stoney Ginger Beer 2L",price:32.99,cat:"Soft Drinks 2L",emoji:"🍺",code:"6001106"},
+ {id:7,name:"Sparletta Sparberry 2L",price:29.99,cat:"Soft Drinks 2L",emoji:"🍓",code:"6001107"},
+ {id:8,name:"Sparletta Creme Soda 2L",price:29.99,cat:"Soft Drinks 2L",emoji:"🥤",code:"6001108"},
+ {id:9,name:"Twist Lemon 2L",price:32.99,cat:"Soft Drinks 2L",emoji:"🍋",code:"6001109"},
+ {id:10,name:"Appletiser 1.25L",price:36.99,cat:"Soft Drinks 2L",emoji:"🍎",code:"6001110"},
+ {id:11,name:"Grapetiser 1.25L",price:36.99,cat:"Soft Drinks 2L",emoji:"🍇",code:"6001111"},
+ {id:12,name:"Pepsi 2L",price:29.99,cat:"Soft Drinks 2L",emoji:"🥤",code:"6001112"},
+ {id:20,name:"Aquelle Water 1.5L",price:14.99,cat:"Water 1.5L",emoji:"💧",code:"6001120"},
+ {id:21,name:"Valpre Water 1.5L",price:17.99,cat:"Water 1.5L",emoji:"💧",code:"6001121"},
+ {id:22,name:"Bonaqua Water 1.5L",price:15.99,cat:"Water 1.5L",emoji:"💧",code:"6001122"},
+ {id:23,name:"Nestle Pure Life 1.5L",price:15.99,cat:"Water 1.5L",emoji:"💧",code:"6001123"},
+ {id:24,name:"Thirsti Water 1.5L",price:13.99,cat:"Water 1.5L",emoji:"💧",code:"6001124"},
+ {id:25,name:"Spar Water 1.5L",price:13.99,cat:"Water 1.5L",emoji:"💧",code:"6001125"},
+ {id:30,name:"Oros Orange 2L",price:44.99,cat:"Juice & More",emoji:"🍊",code:"6001130"},
+ {id:31,name:"Ceres Juice 1L",price:29.99,cat:"Juice & More",emoji:"🧃",code:"6001131"},
+ {id:32,name:"Tropika 1.5L",price:34.99,cat:"Juice & More",emoji:"🥭",code:"6001132"},
+ {id:33,name:"Mageu 2L",price:24.99,cat:"Juice & More",emoji:"🥛",code:"6001133"},
+ {id:34,name:"Amasi / Maas 2L",price:39.99,cat:"Juice & More",emoji:"🥛",code:"6001134"},
+ {id:35,name:"Monster Energy 500ml",price:24.99,cat:"Juice & More",emoji:"⚡",code:"6001135"},
+ {id:36,name:"Red Bull 250ml",price:29.99,cat:"Juice & More",emoji:"⚡",code:"6001136"},
+ {id:37,name:"Powerade 500ml",price:19.99,cat:"Juice & More",emoji:"🏃",code:"6001137"},
+ {id:38,name:"Energade 500ml",price:19.99,cat:"Juice & More",emoji:"🏃",code:"6001138"},
+ {id:39,name:"Ice Tea Peach 1.5L",price:28.99,cat:"Juice & More",emoji:"🍑",code:"6001139"},
+ {id:40,name:"Ice Tea Lemon 1.5L",price:28.99,cat:"Juice & More",emoji:"🍋",code:"6001140"},
+];
+let cart={}, payMethod="CASH", activeCat="All", sales=JSON.parse(localStorage.getItem('ricky_sales')||'[]');
+let cats=["All",...new Set(products.map(p=>p.cat))];
+function showPage(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+  let nb=document.getElementById('nav-'+page); if(nb) nb.classList.add('active');
+  if(page==='products') renderProducts();
+  if(page==='sales') renderSales();
+  window.scrollTo(0,0);
+}
+function goToCat(cat){ activeCat=cat; showPage('pos'); render(); }
+function renderCats(){document.getElementById('cats').innerHTML=cats.map(c=>`<button class="${c===activeCat?'active':''}" onclick="setCat('${c}')">${c}</button>`).join('');}
+function setCat(c){activeCat=c;render();}
+function setPay(m){payMethod=m;document.getElementById('payLabel').innerText="Payment: "+m;render();}
+function render(){
+  renderCats();
+  let q=(document.getElementById('search').value||"").toLowerCase();
+  let list=products.filter(p=>(activeCat==="All"||p.cat===activeCat)&&(p.name.toLowerCase().includes(q)||p.code.includes(q)));
+  document.getElementById('grid').innerHTML=list.map(p=>`<div class="card" onclick="add(${p.id})"><div class="img">${p.emoji}</div><h3>${p.name}</h3><p>${p.cat} • ${p.code}</p><div class="price"><b>R ${p.price.toFixed(2)}</b><span>+ ADD</span></div></div>`).join('');
+  let items=Object.values(cart);
+  let sub=items.reduce((s,i)=>s+i.qty*i.price,0);
+  let vat=sub*15/115;
+  let cash=parseFloat(document.getElementById('cashGiven').value||0);
+  let change=Math.max(0,cash-sub);
+  document.getElementById('count').innerText=items.length?`(${items.reduce((s,i)=>s+i.qty,0)} items)`:"";
+  document.getElementById('cartItems').innerHTML=items.length?items.map(i=>`<div class="cart-item"><div><b>${i.name}</b><br><small>R ${i.price.toFixed(2)} each</small></div><div class="qty"><button onclick="chg(${i.id},-1)">-</button><b>${i.qty}</b><button onclick="chg(${i.id},1)">+</button></div><b>R ${(i.qty*i.price).toFixed(2)}</b></div>`).join(''):"<p style='color:#999'>Cart is empty. Tap a drink to add.</p>";
+  document.getElementById('sub').innerText="R "+sub.toFixed(2);
+  document.getElementById('vat').innerText="R "+vat.toFixed(2);
+  document.getElementById('total').innerText="R "+sub.toFixed(2);
+  document.getElementById('change').innerText="R "+change.toFixed(2);
+}
+function add(id){let p=products.find(x=>x.id===id);cart[id]=cart[id]||{...p,qty:0};cart[id].qty++;render();}
+function chg(id,d){if(!cart[id])return;cart[id].qty+=d;if(cart[id].qty<=0)delete cart[id];render();}
+function checkout(){
+  let items=Object.values(cart); if(!items.length){alert("Cart is empty");return;}
+  let sub=items.reduce((s,i)=>s+i.qty*i.price,0);
+  let cash=parseFloat(document.getElementById('cashGiven').value||0);
+  let change=Math.max(0,cash-sub);
+  let now=new Date().toLocaleString();
+  sales.push({time:now,items:items.map(i=>i.qty+" x "+i.name).join(", "),pay:payMethod,total:sub,count:items.reduce((s,i)=>s+i.qty,0)});
+  localStorage.setItem('ricky_sales',JSON.stringify(sales));
+  let receipt=document.getElementById('receipt');
+  receipt.style.display="block";
+  receipt.innerHTML=`<div style="max-width:320px;margin:auto;text-align:center;font-family:monospace"><img src="store-logo.png" style="width:90px;height:90px;border-radius:50%;object-fit:cover;"><div style="font-size:22px;font-weight:900;color:#6B0F1A">RICKY'S</div><div style="letter-spacing:3px;color:#B8962E;font-size:11px">GROCERY STORE</div><p>Mbombela<br>${now}<br>Receipt #: ${Date.now().toString().slice(-6)} • ${payMethod}</p><hr>${items.map(i=>`<div style="display:flex;justify-content:space-between;text-align:left"><span>${i.qty} x ${i.name}</span><b>R ${(i.qty*i.price).toFixed(2)}</b></div>`).join('')}<hr><div style="display:flex;justify-content:space-between"><b>TOTAL</b><b>R ${sub.toFixed(2)}</b></div><div style="display:flex;justify-content:space-between"><span>Cash Given</span><span>R ${cash.toFixed(2)}</span></div><div style="display:flex;justify-content:space-between"><span>Change</span><span>R ${change.toFixed(2)}</span></div><p>Thank you for shopping at Ricky's!<br>*** Please come again ***</p></div>`;
+  window.print(); cart={};document.getElementById('cashGiven').value="";render(); setTimeout(()=>receipt.style.display="none",500);
+}
+function renderProducts(){
+  document.getElementById('productTable').innerHTML=products.map(p=>`<tr><td>${p.emoji} ${p.name}</td><td>${p.cat}</td><td>R ${p.price.toFixed(2)}</td><td>${p.code}</td><td><button onclick="delProduct(${p.id})" style="background:#ff4444;color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer">Delete</button></td></tr>`).join('');
+}
+function addProduct(){
+  let name=document.getElementById('newName').value.trim();
+  let price=parseFloat(document.getElementById('newPrice').value);
+  let cat=document.getElementById('newCat').value;
+  if(!name||!price){alert("Enter name and price");return;}
+  products.push({id:Date.now(),name,price,cat,emoji:"🥤",code:"600"+Math.floor(Math.random()*9000+1000)});
+  cats=["All",...new Set(products.map(p=>p.cat))];
+  document.getElementById('newName').value="";document.getElementById('newPrice').value="";
+  renderProducts(); render(); alert("Product added!");
+}
+function delProduct(id){products=products.filter(p=>p.id!==id);renderProducts();render();}
+function renderSales(){
+  let total=sales.reduce((s,x)=>s+x.total,0);
+  let items=sales.reduce((s,x)=>s+x.count,0);
+  document.getElementById('todayTotal').innerText="R "+total.toFixed(2);
+  document.getElementById('todayCount').innerText=sales.length;
+  document.getElementById('todayItems').innerText=items;
+  document.getElementById('salesTable').innerHTML=sales.length?sales.map(s=>`<tr><td>${s.time}</td><td>${s.items}</td><td>${s.pay}</td><td><b>R ${s.total.toFixed(2)}</b></td></tr>`).join(''):`<tr><td colspan="4" style="text-align:center;color:#999">No sales yet today.</td></tr>`;
+}
+function clearSales(){if(confirm("Clear all sales?")){sales=[];localStorage.removeItem('ricky_sales');renderSales();}}
+document.getElementById('search').addEventListener('keydown',e=>{if(e.key==="Enter"){let v=e.target.value.trim();let p=products.find(x=>x.code===v);if(p){add(p.id);e.target.value="";}}});
+render();
+</script>
+</body>
+</html>
