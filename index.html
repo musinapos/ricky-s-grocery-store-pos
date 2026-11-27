@@ -6,57 +6,61 @@
 <title>RICKY'S GROCERY STORE - POS</title>
 <style>
 *{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
-body{margin:0;background:#D6EAF8}
-#splash{position:fixed;inset:0;background:radial-gradient(circle at 50% 30%,#8A1420,#4A0810);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;text-align:center}
-#splash img{width:230px;height:230px;border-radius:50%;object-fit:cover;border:6px solid #D4AF37;background:#fff}
+body{margin:0;background:#FFF8F0}
+.logo-btn{background:linear-gradient(180deg,#8A1420 0%,#6B0F1A 45%,#4A0810 100%);color:#fff;border:3px solid #D4AF37;border-radius:999px;padding:15px 20px;font-weight:900;font-size:16px;letter-spacing:1px;cursor:pointer;box-shadow:0 6px 0 #2A0408, 0 10px 20px rgba(0,0,0,.35), inset 0 2px 0 rgba(255,255,255,.35);width:100%}
+.logo-btn:active{transform:translateY(3px)}
+.logo-btn span{color:#FFD700}
+.logo-btn.gold{background:linear-gradient(180deg,#FFE27A,#FFD700 50%,#D4AF37);color:#4A0810;border:3px solid #fff;box-shadow:0 6px 0 #8A6D00}
+.logo-btn.gold span{color:#6B0F1A}
+#splash{position:fixed;inset:0;background:radial-gradient(circle at 50% 30%,#8A1420,#4A0810);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;text-align:center;padding:20px}
+#splash img{width:230px;height:230px;border-radius:50%;object-fit:cover;border:6px solid #D4AF37;background:#fff;box-shadow:0 20px 50px rgba(0,0,0,.5)}
 #splash h1{color:#fff;font-size:48px;margin:16px 0 2px;letter-spacing:2px}
-#splash p{color:#FFD700;letter-spacing:7px;font-weight:700;margin:0}
-#splash .load{width:260px;height:10px;background:#ffffff33;border-radius:99px;margin-top:24px;overflow:hidden}
+#splash p{color:#FFD700;letter-spacing:7px;font-weight:700;margin:0 0 20px}
+#splash .btn-wrap{width:300px;max-width:90%;display:flex;flex-direction:column;gap:12px}
+#splash .load{width:260px;height:10px;background:#ffffff33;border-radius:99px;margin-top:18px;overflow:hidden}
 #splash .load div{height:100%;width:0%;background:#FFD700}
-.topbar{background:linear-gradient(90deg,#1A3A8F,#2E86C1,#27AE60);color:#fff;padding:8px 12px;display:flex;justify-content:space-between;align-items:center}
+.topbar{background:#6B0F1A;color:#fff;padding:8px 12px;display:flex;justify-content:space-between;align-items:center;border-bottom:4px solid #D4AF37}
 .top-left{display:flex;align-items:center;gap:10px}
 .top-left img{width:48px;height:48px;border-radius:50%;object-fit:cover;border:3px solid #D4AF37;background:#fff;cursor:pointer}
 .top-left b{font-size:22px;letter-spacing:1px;line-height:1}
 .top-left small{color:#FFD700;font-size:11px}
 .top-right{text-align:right;font-size:12px}
 .top-right div{font-weight:700}
-.top-btns{display:flex;gap:6px;margin-top:4px;justify-content:flex-end}
-.top-btns button{border:none;padding:7px 12px;border-radius:8px;font-weight:800;cursor:pointer}
-.mng{background:#F39C12;color:#fff;border:2px solid #fff!important}.day{background:#B7950B;color:#fff}.out{background:#C0392B;color:#fff}
-.scanbar{background:#EAF2F8;padding:10px;display:flex;gap:10px}
-.scanbar input{flex:1;padding:13px;border:2px solid #AED6F1;border-radius:8px;font-size:16px}
-.scanbar button{padding:0 22px;border:none;border-radius:8px;font-weight:900;cursor:pointer;background:linear-gradient(#FDEBD0,#F5CBA7)}
-.cats{background:#fff;padding:10px;display:flex;gap:8px;flex-wrap:wrap;border-bottom:2px solid #ddd}
-.cats button{padding:10px 16px;border-radius:99px;border:1px solid #AED6F1;background:#EBF5FB;font-weight:800;cursor:pointer}
-.cats button.active{background:#1A3A8F;color:#fff}
+.top-btns{display:flex;gap:8px;margin-top:6px;justify-content:flex-end}
+.top-btns button{background:linear-gradient(180deg,#8A1420,#6B0F1A);color:#fff;border:2px solid #D4AF37;border-radius:999px;padding:8px 14px;font-weight:900;cursor:pointer;box-shadow:0 3px 0 #2A0408}
+.top-btns button span{color:#FFD700}
+.scanbar{background:#FDF3D8;padding:10px;display:flex;gap:10px;border-bottom:2px solid #D4AF37}
+.scanbar input{flex:1;padding:13px;border:2px solid #E8D5B5;border-radius:999px;font-size:16px;outline:none}
+.scanbar button{padding:0 22px;border:none;border-radius:999px;font-weight:900;cursor:pointer;background:linear-gradient(180deg,#8A1420,#6B0F1A);color:#fff;border:3px solid #D4AF37}
+.cats{background:#fff;padding:10px;display:flex;gap:8px;flex-wrap:wrap;border-bottom:2px solid #E8D5B5}
+.cats button{padding:10px 16px;border-radius:999px;border:2px solid #D4AF37;background:#FFF8F0;font-weight:800;cursor:pointer}
+.cats button.active{background:linear-gradient(180deg,#8A1420,#6B0F1A);color:#fff;border:3px solid #D4AF37}
 .main{display:grid;grid-template-columns:1fr 380px;gap:10px;padding:10px;align-items:start}
-.left{background:#fff;border-radius:10px;padding:12px;min-height:600px}
-.left h3{margin:0 0 10px;color:#1A3A8F}
+.left{background:#fff;border-radius:10px;padding:12px;min-height:600px;border:1px solid #F0E2C8}
+.left h3{margin:0 0 10px;color:#6B0F1A}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
-.card{border:2px solid #AED6F1;border-radius:12px;overflow:hidden;background:#fff}
-.card.sel{border-color:#27AE60;box-shadow:0 0 0 3px #A9DFBF}
-.card .img{height:110px;background:#111;display:grid;place-items:center;font-size:52px;color:#fff}
+.card{border:2px solid #F0E2C8;border-radius:12px;overflow:hidden;background:#fff}
+.card.sel{border-color:#D4AF37;box-shadow:0 0 0 3px #FFE9A8}
+.card .img{height:110px;background:#6B0F1A;display:grid;place-items:center;font-size:52px;color:#fff}
 .card .body{padding:10px}
-.card small{color:#2E86C1;font-size:12px}
+.card small{color:#B8962E;font-size:12px}
 .card b{font-size:14px;display:block;margin:4px 0}
-.card .price{color:#2E86C1;font-weight:900;font-size:19px}
-.barcode{border:1px dashed #999;text-align:center;padding:6px;margin:8px 0;font-family:monospace;font-size:11px}
-.barcode div{font-size:22px;letter-spacing:2px}
-.card button{width:100%;padding:11px;border:none;border-radius:8px;background:linear-gradient(#FDEBD0,#F5CBA7);font-weight:900;cursor:pointer}
-.right{background:#fff;border-radius:10px;padding:14px;position:sticky;top:10px;box-shadow:0 4px 20px rgba(0,0,0,.15)}
+.card .price{color:#6B0F1A;font-weight:900;font-size:19px;margin-bottom:10px}
+.card button{width:100%;padding:11px;border:none;border-radius:999px;background:linear-gradient(180deg,#8A1420,#6B0F1A);color:#fff;border:2px solid #D4AF37;font-weight:900;cursor:pointer}
+.right{background:#fff;border-radius:10px;padding:14px;position:sticky;top:10px;box-shadow:0 4px 20px rgba(0,0,0,.15);border:2px solid #D4AF37}
 .right .rlogo{text-align:center}
 .right .rlogo img{width:70px;height:70px;border-radius:50%;object-fit:cover;border:3px solid #D4AF37}
-.right h2{text-align:center;color:#1A3A8F;margin:6px 0 0;font-size:16px}
+.right h2{text-align:center;color:#6B0F1A;margin:6px 0 0;font-size:16px}
 .right p{text-align:center;margin:2px 0;color:#555;font-size:12px}
-.right h3{text-align:center;color:#2E86C1;margin:8px 0}
+.right h3{text-align:center;color:#B8962E;margin:8px 0}
 .item{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee;padding:8px 0}
 .qtybtns{display:flex;gap:4px;align-items:center}
-.qtybtns button{width:30px;height:30px;border-radius:50%;border:none;background:#2E86C1;color:#fff;font-weight:900;cursor:pointer}
-.qtybtns button.x{background:#E74C3C}
+.qtybtns button{width:30px;height:30px;border-radius:50%;border:none;background:#6B0F1A;color:#fff;font-weight:900;cursor:pointer;border:1px solid #D4AF37}
+.qtybtns button.x{background:#C0392B}
 .total-row{display:flex;justify-content:space-between;margin:12px 0}
-.total-row b{font-size:22px;color:#1A3A8F}
-.right input,.right select{width:100%;padding:12px;margin:5px 0;border:2px solid #AED6F1;border-radius:8px;font-size:15px}
-.checkout{width:100%;padding:15px;background:#1AB0D6;color:#fff;border:none;border-radius:8px;font-weight:900;font-size:16px;cursor:pointer;margin-top:8px}
+.total-row b{font-size:22px;color:#6B0F1A}
+.right input,.right select{width:100%;padding:12px;margin:5px 0;border:2px solid #E8D5B5;border-radius:999px;font-size:15px}
+.checkout{width:100%;padding:15px;background:linear-gradient(180deg,#8A1420,#6B0F1A);color:#fff;border:3px solid #D4AF37;border-radius:999px;font-weight:900;font-size:16px;cursor:pointer;margin-top:8px;box-shadow:0 5px 0 #2A0408}
 @media(max-width:900px){.main{grid-template-columns:1fr}.right{position:static}}
 @media print{body *{visibility:hidden} #receipt,#receipt *{visibility:visible} #receipt{position:absolute;left:0;top:0;width:100%}}
 </style>
@@ -64,12 +68,20 @@ body{margin:0;background:#D6EAF8}
 <body>
 <div id="splash" onclick="enterPOS()">
   <img src="store-logo.png"><h1>RICKY'S</h1><p>GROCERY STORE</p>
-  <div class="load"><div id="loadBar"></div></div><small style="color:#fff;margin-top:12px">Loading POS... Tap to enter</small>
+  <div class="btn-wrap">
+    <button class="logo-btn gold" onclick="enterPOS(event)">🛒 <span>START SELLING</span></button>
+    <button class="logo-btn" onclick="enterPOS(event,'Soft Drinks')">🥤 SOFT DRINKS <span>• 2L</span></button>
+    <button class="logo-btn" onclick="enterPOS(event,'Grocery')">🛒 GROCERY <span>• SHOP</span></button>
+    <button class="logo-btn" onclick="enterPOS(event,'Fruits & Vegetables')">🍎 FRUITS <span>& VEG</span></button>
+    <button class="logo-btn" onclick="enterPOS(event,'Electric Equipment')">🔌 ELECTRIC <span>• EQUIP</span></button>
+  </div>
+  <div class="load"><div id="loadBar"></div></div>
+  <small style="color:#fff;margin-top:10px">No password • Tap any button to enter</small>
 </div>
 <div class="topbar">
   <div class="top-left" onclick="location.reload()"><img src="store-logo.png"><div><b>RICKY'S</b><br><small>Mbombela Branch • ZA SOUTH AFRICA</small></div></div>
   <div class="top-right"><div id="clock">2026/11/27</div><div>Cashier: shai</div>
-    <div class="top-btns"><button class="mng" onclick="alert('Management: Today R '+salesTotal().toFixed(2))">MANAGEMENT</button><button class="day" onclick="dayEnd()">DAY END</button><button class="out" onclick="location.reload()">LOGOUT</button></div>
+    <div class="top-btns"><button onclick="alert('Management: Today R '+salesTotal().toFixed(2))">MANAGE<span>MENT</span></button><button onclick="dayEnd()">DAY <span>END</span></button><button onclick="location.reload()">LOG<span>OUT</span></button></div>
   </div>
 </div>
 <div class="scanbar"><input id="search" placeholder="SCAN / TYPE BARCODE + Enter" oninput="render()" onkeydown="if(event.key==='Enter'){scanCode(this.value)}"><button onclick="scanCode(document.getElementById('search').value)">SCAN +</button><button onclick="alert('Cash Drawer Opened')">CASH DRAWER</button></div>
@@ -150,8 +162,8 @@ let cart={}, activeCat="Soft Drinks", orderNo="UQ-"+Math.floor(10000+Math.random
 let cats=["Soft Drinks","Grocery","Fruits & Vegetables","Water","Juice & More","Electric Equipment"];
 let sales=JSON.parse(localStorage.getItem('ricky_sales')||'[]');
 function salesTotal(){return sales.reduce((s,x)=>s+x.total,0)}
-function enterPOS(){document.getElementById('splash').style.display='none';}
-let load=0; let li=setInterval(()=>{load+=20;document.getElementById('loadBar').style.width=load+'%'; if(load>=100){clearInterval(li); setTimeout(enterPOS,400)}},300);
+function enterPOS(e,cat){if(e) e.stopPropagation(); if(cat) activeCat=cat; document.getElementById('splash').style.display='none'; render();}
+let load=0; let li=setInterval(()=>{load+=20;document.getElementById('loadBar').style.width=load+'%'; if(load>=100){clearInterval(li); setTimeout(()=>enterPOS(null,null),400)}},300);
 setInterval(()=>{let d=new Date(); document.getElementById('clock').innerText=d.getFullYear()+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+String(d.getDate()).padStart(2,'0')+', '+d.toLocaleTimeString()},1000);
 document.getElementById('orderNo').innerText="Order "+orderNo+" • Cashier: shai";
 function renderCats(){document.getElementById('cats').innerHTML=cats.map(c=>`<button class="${c===activeCat?'active':''}" onclick="setCat('${c}')">${c}</button>`).join('')}
@@ -160,7 +172,8 @@ function render(){
   renderCats();
   let q=(document.getElementById('search').value||"").toLowerCase();
   let list=products.filter(p=>p.cat===activeCat && (p.name.toLowerCase().includes(q)||p.code.includes(q)));
-  document.getElementById('grid').innerHTML=list.map(p=>`<div class="card ${cart[p.id]?'sel':''}"><div class="img">${p.emoji}</div><div class="body"><small>ITE${p.code} • Stock: ${p.stock}</small><b>${p.name}</b><div class="price">R${p.price.toFixed(2)}</div><div class="barcode"><div>||| ${p.code} |||</div>Scan this fingerprint</div><button onclick="add(${p.id})">ADD +</button></div></div>`).join('');
+  // NO BARCODE - CLEAN CARD
+  document.getElementById('grid').innerHTML=list.map(p=>`<div class="card ${cart[p.id]?'sel':''}"><div class="img">${p.emoji}</div><div class="body"><small>Stock: ${p.stock}</small><b>${p.name}</b><div class="price">R${p.price.toFixed(2)}</div><button onclick="add(${p.id})">ADD +</button></div></div>`).join('');
   let items=Object.values(cart);
   let sub=items.reduce((s,i)=>s+i.qty*i.price,0);
   let vat=sub*15/115;
